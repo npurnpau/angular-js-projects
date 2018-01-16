@@ -1,0 +1,115 @@
+<html ng-app="myApp">
+    <head>
+        <title>
+            Test Quality Metrics dashboard
+        </title>
+        <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css">
+        <link rel="stylesheet" href="bower_components/bootstrap/dist/css/dashboard.css">
+        <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.min.css">
+        <link rel="stylesheet" href="css/style.css">
+        <link href="bower_components/bootstrap/dist/css/dashboard.css" rel="stylesheet">
+    </head>
+    <body>
+
+        <header>
+            <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+              <a class="navbar-brand" href="#">Dashboard</a>
+              <button class="navbar-toggler d-lg-none" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+              </button>
+      
+              <div class="collapse navbar-collapse" id="navbarsExampleDefault">
+                <ul class="navbar-nav mr-auto">
+                  <li class="nav-item active">
+                   <h3> <a class="nav-link" href="#">Consolidated Report <span class="sr-only">(current)</span></a></h3>
+                  </li>
+                </ul>
+              </div>
+            </nav>
+          </header>
+
+          <div class="panel panel-default" >
+              <table>
+                      <tr ng-repeat="build in builds" ng-init="getBuilds()">
+                              <td>{{build.total_tests_skipped}}</td>
+                              <td>{{build.database_type}}</td>
+                              <td>{{build.total_execution_time}}</td>
+                              <td>{{build.total_tests_failed}}</td>
+                              <td>{{build.total_tests_count}}</td>
+                              <td>{{build.total_tests_passed}}</td>
+                              <td>{{build.component_name}}</td>
+                              <td>{{build.build_no}}</td>
+                              <td>{{build.runDate}}</td>
+                              <td>{{build.failed_tests}}</td>
+                      </tr>
+              </table>
+              </div>
+        
+         <!-- <div class="container-fluid">
+              <div class="row">
+                <nav class="col-sm-3 col-md-2 d-none d-sm-block bg-light sidebar">
+                  <ul class="nav nav-pills flex-column">
+                    <li class="nav-item">
+                      <a class="nav-link" href="#">Overview <span class="sr-only">(current)</span></a>
+                    </li>
+                    <li class="nav-item">
+                      <h3><a class="nav-link" href="#/builds">Detailed Metrics</a></h3>
+                    </li>
+                    <li class="nav-item">
+                        <h3><a class="nav-link" href="#/totalResults">Build-wise Metrics</a></h3>
+                      </li>
+                  </ul>
+                     
+                </nav>
+              </div>
+            </div> -->
+        
+               <!--   <main role="main" class="col-sm-9 ml-sm-auto col-md-10 pt-3">
+                  <h1></h1>
+                  <h1>Dashboard</h1>
+        
+                  <h2>CRT Builds Execution</h2>
+                  <div class="table-responsive">
+                    <table class="table table-striped">
+                        <thead>
+                            <tr >
+                                    <th class="CaTableColumnHeader">total_tests_skipped</th>
+                                    <th class="CaTableColumnHeader">database_type</th>
+                                    <th class="CaTableColumnHeader">total_execution_time</th>
+                                    <th class="CaTableColumnHeader">total_tests_failed</th>
+                                    <th class="CaTableColumnHeader">total_tests_count</th>
+                                   <th class="CaTableColumnHeader">total_tests_passed</th>
+                                    <th class="CaTableColumnHeader">component_name</th>
+                                    <th class="CaTableColumnHeader">build_no</th>
+                                    <th class="CaTableColumnHeader">runDate</th>>
+                                    <th class="CaTableColumnHeader">failed_tests</th>>
+                                   
+                            </tr>
+                    </thead>
+                     
+                    </table>
+                  </div>
+                </main>-->
+           
+            
+            <div class="container-fluid">
+                <div class="row">
+                  <div class="col-md-12">
+                    <div ng-view></div>
+    
+                    </div>
+                  </div>
+                </div>  
+              </div>
+
+        <script src = "bower_components/jquery/dist/jquery.js"></script>
+        <script src = "bower_components/angular/angular.js"></script>
+        <script src = "bower_components/angular-route/angular-route.js"></script>
+        <script src = "bower_components/bootstrap/dist/js/bootstrap.js"></script>
+        <script src = "app.js"></script>
+        <script src = "controllers/metrics.js"></script>
+       
+        <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script>window.jQuery || document.write('<script src="../../../../assets/js/vendor/jquery-slim.min.js"><\/script>')</script>
+    </body>
+</html>
