@@ -1,45 +1,46 @@
-<!--<div class="panel panel-default" ng-init="getBuilds()">
-    <div class="panel-heading">
-        <h3 class="panel-title">Detailed Metrics Based on component</h3>
-    </div>
-    <div class="panel-body">
-        <div class="row">
-            <div ng-repeat="build in builds">
-                <div class="col-md-3">
-                    <div class="col-md-6">
-                            <p>{{build.total_tests_skipped}}</p>
-                            <p>{{build.database_type}}</p>
-                            <p>{{build.total_execution_time}}</p>
-                            <p>{{build.total_tests_failed}}</p>
-                            <p>{{build.total_tests_count}}</p>
-                            <p>{{build.total_tests_passed}}</p>
-                            <p>{{build.component_name}}</p>
-                            <p>{{build.build_no}}</p>
-                            <p>{{build.runDate}}</p>
-                            <p>{{build.failed_tests}}</p>
+     <div>
+            <main role="main" class="col-sm-9 ml-sm-auto col-md-10 pt-3">
+                    <h1></h1>
+                    <h1>Dashboard</h1>
+                    <h2>CRT Builds Execution</h2>
+                    <div class="table-responsive">
+                    <div ng-controller="BuildsController" ng-init="getBuilds()">
+                      <table class="table table-striped">
+                          <thead>
+                              <tr >
+                                      <th class="CaTableColumnHeader">build_no</th>
+                                      <th class="CaTableColumnHeader">Total Tests</th>
+                                      <th class="CaTableColumnHeader">Passed</th>
+                                      <th class="CaTableColumnHeader">Failed</th>
+                                      
+                                      <th class="CaTableColumnHeader">Skipped</th>
+                                      <th class="CaTableColumnHeader">DB Type</th>
+                                      <th class="CaTableColumnHeader">Execution Time</th>
+                                      
+                                      
+                                      
+                                      <th class="CaTableColumnHeader">Component</th>
+                                      
+                                      <th class="CaTableColumnHeader">Run Date</th>>
+                                      <th class="CaTableColumnHeader">Failed Scripts</th>>
+                              </tr>
+                            </thead>
+                              <tr>
+                                    <tr ng-repeat="build in builds.data">
+                                            <td>{{build.build_no}}</td>
+                                            <td>{{build.total_tests_count}}</td>
+                                            <td>{{build.total_tests_passed}}</td>
+                                            <td>{{build.total_tests_failed}}</td>
+                                            <td>{{build.total_tests_skipped}}</td>
+                                            <td>{{build.database_type}}</td>
+                                            <td>{{build.total_execution_time}}</td>
+                                            <td>{{build.component_name}}</td>
+                                            <td>{{build.run_date}}</td>
+                                            <td>{{build.failed_tests}}</td>
+                                    </tr>                                  
+                        </table>
                     </div>
+                    </div>
+                  </main>
 
-                </div>
-            </div>
-        </div>
     </div>
-        
-    
-</div>-->
-
-<div class="panel panel-default" ng-init="getBuilds()">
-<table>
-        <tr ng-repeat="build in builds">
-                <td>{{build.total_tests_skipped}}</td>
-                <td>{{build.database_type}}</td>
-                <td>{{build.total_execution_time}}</td>
-                <td>{{build.total_tests_failed}}</td>
-                <td>{{build.total_tests_count}}</td>
-                <td>{{build.total_tests_passed}}</td>
-                <td>{{build.component_name}}</td>
-                <td>{{build.build_no}}</td>
-                <td>{{build.runDate}}</td>
-                <td>{{build.failed_tests}}</td>
-        </tr>
-</table>
-</div>

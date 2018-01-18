@@ -14,10 +14,9 @@ myApp.config(function($routeProvider){
     })
     
     .when('/dashboard',{
-        controller : "BuildsController",
+        controller : "DashboardController",
         templateUrl : 'views/dashboard.html'
     })
-    .otherwise({
-        redirectTo: '/'   
-    });
+
+    
 });

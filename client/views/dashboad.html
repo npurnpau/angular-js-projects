@@ -1,1 +1,29 @@
-test
+<div>
+        <main class="col-sm-9 ml-sm-auto col-md-10 pt-3">
+                <h1></h1>
+                <h1>Dashboard</h1>
+                <h2>Build wise test metrics</h2>
+                <div class="table-responsive">
+                <div ng-controller="DashBoardController">
+                  <table class="table table-striped">
+                      <thead>
+                          <tr >
+                                  <th class="CaTableColumnHeader">build_no</th>
+                                  <th class="CaTableColumnHeader">Total Tests</th>
+                                  <th class="CaTableColumnHeader">Passed</th>
+                                  <th class="CaTableColumnHeader">Failed</th>
+                          </tr>
+                        </thead>
+                          <tr>
+                                <tr ng-repeat="build in builds1.data">
+                                        <td>{{build.build_no}}</td>
+                                        <td>{{build.total_tests_count}}</td>
+                                        <td>{{build.total_tests_passed}}</td>
+                                        <td>{{build.total_tests_failed}}</td>
+                                </tr>                                  
+                    </table>
+                </div>
+                </div>
+              </main>
+
+</div>

@@ -20,83 +20,23 @@
       
               <div class="collapse navbar-collapse" id="navbarsExampleDefault">
                 <ul class="navbar-nav mr-auto">
-                  <li class="nav-item active">
-                   <h3> <a class="nav-link" href="#">Consolidated Report <span class="sr-only">(current)</span></a></h3>
+                   <li class="nav-item active">
+                      <h3><a class="nav-link" href="#/metricsDetails">Detailed Metrics</a></h3>
+                  </li> 
+                  <li class="nav-item">
+                      <h3><a class="nav-link" href="#/dashboad">Build-wise Metrics</a></h3>
                   </li>
                 </ul>
               </div>
             </nav>
           </header>
 
-          <div class="panel panel-default" >
-              <table>
-                      <tr ng-repeat="build in builds" ng-init="getBuilds()">
-                              <td>{{build.total_tests_skipped}}</td>
-                              <td>{{build.database_type}}</td>
-                              <td>{{build.total_execution_time}}</td>
-                              <td>{{build.total_tests_failed}}</td>
-                              <td>{{build.total_tests_count}}</td>
-                              <td>{{build.total_tests_passed}}</td>
-                              <td>{{build.component_name}}</td>
-                              <td>{{build.build_no}}</td>
-                              <td>{{build.runDate}}</td>
-                              <td>{{build.failed_tests}}</td>
-                      </tr>
-              </table>
-              </div>
-        
-         <!-- <div class="container-fluid">
-              <div class="row">
-                <nav class="col-sm-3 col-md-2 d-none d-sm-block bg-light sidebar">
-                  <ul class="nav nav-pills flex-column">
-                    <li class="nav-item">
-                      <a class="nav-link" href="#">Overview <span class="sr-only">(current)</span></a>
-                    </li>
-                    <li class="nav-item">
-                      <h3><a class="nav-link" href="#/builds">Detailed Metrics</a></h3>
-                    </li>
-                    <li class="nav-item">
-                        <h3><a class="nav-link" href="#/totalResults">Build-wise Metrics</a></h3>
-                      </li>
-                  </ul>
-                     
-                </nav>
-              </div>
-            </div> -->
-        
-               <!--   <main role="main" class="col-sm-9 ml-sm-auto col-md-10 pt-3">
-                  <h1></h1>
-                  <h1>Dashboard</h1>
-        
-                  <h2>CRT Builds Execution</h2>
-                  <div class="table-responsive">
-                    <table class="table table-striped">
-                        <thead>
-                            <tr >
-                                    <th class="CaTableColumnHeader">total_tests_skipped</th>
-                                    <th class="CaTableColumnHeader">database_type</th>
-                                    <th class="CaTableColumnHeader">total_execution_time</th>
-                                    <th class="CaTableColumnHeader">total_tests_failed</th>
-                                    <th class="CaTableColumnHeader">total_tests_count</th>
-                                   <th class="CaTableColumnHeader">total_tests_passed</th>
-                                    <th class="CaTableColumnHeader">component_name</th>
-                                    <th class="CaTableColumnHeader">build_no</th>
-                                    <th class="CaTableColumnHeader">runDate</th>>
-                                    <th class="CaTableColumnHeader">failed_tests</th>>
-                                   
-                            </tr>
-                    </thead>
-                     
-                    </table>
-                  </div>
-                </main>-->
            
             
             <div class="container-fluid">
                 <div class="row">
                   <div class="col-md-12">
                     <div ng-view></div>
-    
                     </div>
                   </div>
                 </div>  
