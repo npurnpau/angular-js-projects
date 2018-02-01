@@ -10,7 +10,6 @@ var myApp = angular.module('myApp');
 //     }
 //  }]);
 
-
  myApp.controller('DashboardController', function ($scope, $http){
     $scope.builds1 = "hello";
     $http({
@@ -19,8 +18,7 @@ var myApp = angular.module('myApp');
     }).then(function successCallback(response) {
         console.log(response);
         $scope.builds1= response;
-        
      },function errorCallback(response) {
 
-      });
+    });
    });
