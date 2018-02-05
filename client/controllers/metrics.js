@@ -6,6 +6,5 @@ var myApp = angular.module('myApp');
     }).then(function successCallback(response) {
         $scope.builds= response;
      },function errorCallback(response) {
-
       });
-   });
+});
