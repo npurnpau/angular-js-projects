@@ -1,9 +1,7 @@
 var mongoose  = require('mongoose');
-var total_tests = 0;
+
 mongoose.connect('mongodb://10.131.227.154/Final-crt');
 var db = mongoose.connection;
-
-
 
 // Genre Schema
 var buildsSchema = mongoose.Schema({
@@ -45,12 +43,10 @@ var buildsSchema = mongoose.Schema({
 var Build = module.exports = mongoose.model('Build',buildsSchema);
 
 
-
-// Get Genres
-
 module.exports.getBuilds = function(callback, limit){
     Build.find(callback).limit(limit);
 }
+
 
 // Get metrics based on build number
 
@@ -92,28 +88,7 @@ module.exports.getFilteredData = function(build_no,component_name,database_type,
     });
         
  }
-
-
-
-
- 
-
-
  module.exports.getTotalTestsForAllTestTypes = function(build_no,callback) {
-    // var XTHJTH_total;
-    // var XTHJTH_passed;
-    // var XTHJTH_failed;
-    // var UI_total;
-    // var UI_passed;
-    // var UI_failed;
-    // var REST_total;
-    // var REST_passed;
-    // var REST_failed;
-    // var PROTRACTOR_total;
-    // var PROTRACTOR_passed;
-    // var PROTRACTOR_failed;
-
-
     Build.aggregate([ { $match:  {'build_no':build_no,'test_type':"XTHJTH"}} ,{ $group: { _id: null, total_tests: { $sum: '$total_tests_count'}} } ]).then(function(data1){
         if(data1){
         XTHJTH_total = data1[0].total_tests;
@@ -142,6 +117,11 @@ module.exports.getFilteredData = function(build_no,component_name,database_type,
                                                  PROTRACTOR_passed = data11[0].total_tests_passed;
                                                  Build.aggregate([ { $match:  {'build_no':build_no,'test_type':"NEWUI"}} ,{ $group: { _id: null, total_tests_failed: { $sum: '$total_tests_count'}} } ]).then(function(data12){
                                                      PROTRACTOR_failed = data12[0].total_tests_failed;
+                                                     db.collection("metrics").insert({ build_no:build_no,XTHJTH_total: XTHJTH_total, XTHJTH_passed: XTHJTH_passed, XTHJTH_failed: XTHJTH_failed,
+                                                        UI_total:UI_total,UI_passed:UI_passed,UI_failed:UI_failed,
+                                                        REST_total:REST_total,REST_passed:REST_passed,REST_failed,
+                                                        PROTRACTOR_total:PROTRACTOR_total,PROTRACTOR_passed:PROTRACTOR_passed,PROTRACTOR_failed:PROTRACTOR_failed
+                                                     });
                                                      callback("",{ build_no:build_no,XTHJTH_total: XTHJTH_total, XTHJTH_passed: XTHJTH_passed, XTHJTH_failed: XTHJTH_failed,
                                                                    UI_total:UI_total,UI_passed:UI_passed,UI_failed:UI_failed,
                                                                    REST_total:REST_total,REST_passed:REST_passed,REST_failed,
@@ -160,80 +140,3 @@ module.exports.getFilteredData = function(build_no,component_name,database_type,
             });
         });
     }
-
-
-
-
-module.exports.getTotalTestsRTests = function(build_no,callback) {
-
-    var resp = "";
-     Build.aggregate([ { $match:  {'build_no':build_no}} ,{ $group: { _id: null, total_tests: { $sum: '$total_tests_count'}} } ]).then(function(data){
-         db.collection("summaryMetrics").insert(data);
-         resp = data;
-         //callback("",data);
-         Build.aggregate([ { $match:  {'build_no':build_no}} ,{ $group: { _id: null, total_tests: { $sum: '$total_tests_passed'}} } ]).then(function(data){
-             db.collection("summaryMetrics").insert(data);
-             resp = data;
-             //callback("",data);
-             Build.aggregate([ { $match:  {'build_no':build_no}} ,{ $group: { _id: null, total_tests: { $sum: '$total_tests_failed'}} } ]).then(function(data){
-                 db.collection("summaryMetrics").insert(data);
-                 resp = data;
-                 //callback("",data);
-             });
-         });
-     });
-     callback("",resp);
- }
-
- module.exports.getTotalTestsSeleniumUI = function(build_no,callback) {
-
-    var resp = "";
-     Build.aggregate([ { $match:  {'build_no':build_no}} ,{ $group: { _id: null, total_tests: { $sum: '$total_tests_count'}} } ]).then(function(data){
-         db.collection("summaryMetrics").insert(data);
-         resp = data;
-         //callback("",data);
-         Build.aggregate([ { $match:  {'build_no':build_no}} ,{ $group: { _id: null, total_tests: { $sum: '$total_tests_passed'}} } ]).then(function(data){
-             db.collection("summaryMetrics").insert(data);
-             resp = data;
-             //callback("",data);
-             Build.aggregate([ { $match:  {'build_no':build_no}} ,{ $group: { _id: null, total_tests: { $sum: '$total_tests_failed'}} } ]).then(function(data){
-                 db.collection("summaryMetrics").insert(data);
-                 resp = data;
-                 //callback("",data);
-             });
-         });
-     });
-     callback("",resp);
- }
-
- module.exports.getTotalTestsNewUI = function(build_no,callback) {
-
-    var resp = "";
-     Build.aggregate([ { $match:  {'build_no':build_no}} ,{ $group: { _id: null, total_tests: { $sum: '$total_tests_count'}} } ]).then(function(data){
-         db.collection("summaryMetrics").insert(data);
-         resp = data;
-         //callback("",data);
-         Build.aggregate([ { $match:  {'build_no':build_no}} ,{ $group: { _id: null, total_tests: { $sum: '$total_tests_passed'}} } ]).then(function(data){
-             db.collection("summaryMetrics").insert(data);
-             resp = data;
-             //callback("",data);
-             Build.aggregate([ { $match:  {'build_no':build_no}} ,{ $group: { _id: null, total_tests: { $sum: '$total_tests_failed'}} } ]).then(function(data){
-                 db.collection("summaryMetrics").insert(data);
-                 resp = data;
-                 //callback("",data);
-             });
-         });
-     });
-     callback("",resp);
- }
-
-
-
-/*module.exports.getTotalTests = function(build_no,component, callback){
-
-    if(component.cont)
-    Build.aggregate([ { $match:  {'build_no':build_no}} ,{ $group: { _id: null, total_tests: { $sum: '$'+fieldValue}} } ]).then(function(data){
-        db.collection("summaryMetrics").insert(data);
-        callback("",data);
-    });
-}*/

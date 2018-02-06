@@ -1,35 +1,3 @@
-<!-- <html ng-app="myApp">
-<div>
-        <main class="col-sm-9 ml-sm-auto col-md-10 pt-3">
-                <h1></h1>
-                <h1>Dashboard</h1>
-                <h2>Build wise test metrics</h2>
-                <div class="table-responsive">
-                <div ng-controller="DashboardController">
-                  <table class="table table-striped">
-                      <thead>
-                          <tr >
-                                  <th class="CaTableColumnHeader">build_no</th>
-                                  <th class="CaTableColumnHeader">Total Tests</th>
-                                  <th class="CaTableColumnHeader">Passed</th>
-                                  <th class="CaTableColumnHeader">Failed</th>
-                          </tr>
-                        </thead>
-                          <tr>
-                                <tr ng-repeat="build in builds1.data">
-                                        <td>{{build.build_no}}</td>
-                                        <td>{{build.total_tests_count}}</td>
-                                        <td>{{build.total_tests_passed}}</td>
-                                        <td>{{build.total_tests_failed}}</td>
-                                </tr>                                  
-                    </table>
-                </div>
-                </div>
-              </main>
-
-</div>
-
-</html> -->
 
 <html ng-app="myApp">
 <div>
@@ -39,28 +7,36 @@
                 
                 <h2>Build wise test metrics</h2>
                 <div class="table-responsive">
-                <div ng-controller="DashboardController">
+                <div ng-controller="totalTestMetrics">
                   <table border="4" class="table table-striped">
-                                
+                                        <br><br>
                                     <TH rowspan="2" style="text-align:center">Builds</TH>
                                     <TH style="text-align:center" colspan="3">XTH and JTH</TH>
-                                    <TH style="text-align:center" colspan="3">Protractor</TH>
+                                    <TH style="text-align:center" colspan="3">Protractor NewUI</TH>
                                     <TH style="text-align:center" colspan="3">Rest</TH>
+                                    <TH style="text-align:center" colspan="3">Selenium UI</TH>
                                 
-                                        <TR><TH>Total Tests </TH>
-                                            <TH>Total Test Failed </TH>
+                                        <TR><TH>Total Tests</TH>
+                                            
                                             <TH> Total Tests passed </TH>
-                                            <TH>Total Tests </TH>
                                             <TH>Total Test Failed </TH>
-                                            <TH>Total </TH>
                                             <TH>Total Tests </TH>
+                                            
+                                            <TH>Total Tests Passed </TH>
                                             <TH>Total Test Failed </TH>
+                                            <TH>Total Tests </TH>
+                                            
                                             <TH> Total Tests passed</TH>
+                                            <TH>Total Test Failed </TH>
+                                            <TH>Total Tests </TH>
+                                            
+                                            <TH> Total Tests passed</TH>
+                                            <TH>Total Test Failed </TH>
                                        
                                         </TR>            
                                         
+                                        <!-- <TR><TH>15.4.7.104<TD>1.7<TD>0.002<TD>43%<TH>1002<TD>1000<TD>98%<TH>1002<TD>1000<TD>98%</TR> 
                                         <TR><TH>15.4.7.104<TD>1.7<TD>0.002<TD>43%<TH>1002<TD>1000<TD>98%<TH>1002<TD>1000<TD>98%</TR> 
-                                        <TR><TH>15.4.7.104<TD>1.7<TD>0.002<TD>43%<TH>1002<TD>1000<TD>98%<TH>1002<TD>1000<TD>98%</TR> 
                                         <TR><TH>15.4.7.104<TD>1.7<TD>0.002<TD>43%<TH>1002<TD>1000<TD>98%<TH>1002<TD>1000<TD>98%</TR>        
                                         <TR><TH>15.4.7.104<TD>1.7<TD>0.002<TD>43%<TH>1002<TD>1000<TD>98%<TH>1002<TD>1000<TD>98%</TR>        
                                         <TR><TH>15.4.7.104<TD>1.7<TD>0.002<TD>43%<TH>1002<TD>1000<TD>98%<TH>1002<TD>1000<TD>98%</TR>        
@@ -72,7 +48,24 @@
                                         <TR><TH>15.4.7.104<TD>1.7<TD>0.002<TD>43%<TH>1002<TD>1000<TD>98%<TH>1002<TD>1000<TD>98%</TR>        
                                         <TR><TH>15.4.7.104<TD>1.7<TD>0.002<TD>43%<TH>1002<TD>1000<TD>98%<TH>1002<TD>1000<TD>98%</TR>        
                                         <TR><TH>15.4.7.104<TD>1.7<TD>0.002<TD>43%<TH>1002<TD>1000<TD>98%<TH>1002<TD>1000<TD>98%</TR>        
-                                        <TR><TH>15.4.7.104<TD>1.7<TD>0.002<TD>43%<TH>1002<TD>1000<TD>98%<TH>1002<TD>1000<TD>98%</TR>        
+                                        <TR><TH>15.4.7.104<TD>1.7<TD>0.002<TD>43%<TH>1002<TD>1000<TD>98%<TH>1002<TD>1000<TD>98%</TR>         -->
+
+                                                <tr>
+                                                        <tr ng-repeat="metric in metrics.data">
+                                                                <td><b>{{metric.build_no}}</b></td>
+                                                                <td>{{metric.XTHJTH_total}}</td>
+                                                                <td>{{metric.XTHJTH_passed}}</td>
+                                                                <td>{{metric.XTHJTH_failed}}</td>
+                                                                <td>{{metric.UI_total}}</td>
+                                                                <td>{{metric.UI_passed}}</td>
+                                                                <td>{{metric.UI_failed}}</td>
+                                                                <td>{{metric.REST_total}}</td>
+                                                                <td>{{metric.REST_passed}}</td>
+                                                                <td>{{metric.REST_failed}}</td>
+                                                                <td>{{metric.PROTRACTOR_total}}</td>
+                                                                <td>{{metric.PROTRACTOR_passed}}</td>
+                                                                <td>{{metric.PROTRACTOR_failed}}</td>
+                                                        </tr>   
 
                 </div>
                 </div>
