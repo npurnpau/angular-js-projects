@@ -1,4 +1,5 @@
 var mongoose  = require('mongoose');
+var Q = require("q");
 
 mongoose.connect('mongodb://10.131.227.154/Final-crt');
 var db = mongoose.connection;
@@ -41,11 +42,24 @@ var buildsSchema = mongoose.Schema({
 
 
 var Build = module.exports = mongoose.model('Build',buildsSchema);
+module.exports.getBuilds = function(callback, limit){
+    Build.find(callback).limit(limit);
+}
+
+module.exports.getByBuildNumber = function(build_no,callback){
+    Build.find({'build_no':build_no},callback);
+} 
 
 
 module.exports.getBuilds = function(callback, limit){
     Build.find(callback).limit(limit);
 }
+
+
+module.exports.getAllBuildNumbers = function(callback){
+    Build.distinct('build_no',callback);
+    
+} 
 
 
 // Get metrics based on build number
@@ -81,52 +95,143 @@ module.exports.getFilteredData = function(build_no,component_name,database_type,
 
  module.exports.getAggregateData = function(build_no,fieldValue, callback){
 
-
     Build.aggregate([ { $match:  {'build_no':build_no}} ,{ $group: { _id: null, total_tests: { $sum: '$'+fieldValue}} } ]).then(function(data){
         db.collection("summaryMetrics").insert(data);
         callback("",data);
     });
-        
  }
+
+
  module.exports.getTotalTestsForAllTestTypes = function(build_no,callback) {
+    var deferred = Q.defer();
     Build.aggregate([ { $match:  {'build_no':build_no,'test_type':"XTHJTH"}} ,{ $group: { _id: null, total_tests: { $sum: '$total_tests_count'}} } ]).then(function(data1){
-        if(data1){
-        XTHJTH_total = data1[0].total_tests;
-    }else{
+
+        if(data1 && data1.length > 0){
+           // console.log(data1);
+            XTHJTH_total = data1[0].total_tests;
+        }
+        else{
         XTHJTH_total = 0;
-    }
+        }
         Build.aggregate([ { $match:  {'build_no':build_no,'test_type':"XTHJTH"}} ,{ $group: { _id: null, total_tests_passed: { $sum: '$total_tests_passed'}} } ]).then(function(data2){
+            if(data2  && data2.length > 0){
+           // console.log(data2);
             XTHJTH_passed = data2[0].total_tests_passed;
+            }
+            else{
+                XTHJTH_passed = 0;
+            }
             Build.aggregate([ { $match:  {'build_no':build_no,'test_type':"XTHJTH"}} ,{ $group: { _id: null, total_tests_failed: { $sum: '$total_tests_failed'}} } ]).then(function(data3){
-                XTHJTH_failed =  data3[0].total_tests_failed;
-                 Build.aggregate([ { $match:  {'build_no':build_no,'test_type':"UI"}} ,{ $group: { _id: null, total_tests: { $sum: '$total_tests_count'}} } ]).then(function(data4){
-                     UI_total = data4[0].total_tests;
+                if(data3  && data3.length > 0){
+                   // console.log(data3);  
+                    XTHJTH_failed =  data3[0].total_tests_failed;
+                }
+                else{
+                    XTHJTH_failed = 0;
+                }
+                Build.aggregate([ { $match:  {'build_no':build_no,'test_type':"UI"}} ,{ $group: { _id: null, total_tests: { $sum: '$total_tests_count'}} } ]).then(function(data4){
+                    if(data4  && data4.length > 0){
+                        //console.log(data4);
+                        UI_total = data4[0].total_tests;
+                    }
+                     else{
+                        UI_total = 0;
+                     }
+                     
                      Build.aggregate([ { $match:  {'build_no':build_no,'test_type':"UI"}} ,{ $group: { _id: null, total_tests_passed: { $sum: '$total_tests_passed'}} } ]).then(function(data5){
-                        UI_passed = data5[0].total_tests_passed;
+                        if(data5  && data5.length > 0){
+                           // console.log(data5);
+                            UI_passed = data5[0].total_tests_passed;
+                        }
+                        else{
+                            UI_passed = 0;
+                        }
+                       
                         Build.aggregate([ { $match:  {'build_no':build_no,'test_type':"UI"}} ,{ $group: { _id: null, total_tests_failed: { $sum: '$total_tests_failed'}} } ]).then(function(data6){
-                            UI_failed =  data6[0].total_tests_failed;
+                            if(data6  && data6.length > 0){
+                               // console.log(data6);
+                                UI_failed =  data6[0].total_tests_failed;
+                            }
+                            else{
+                                UI_failed = 0;
+                            }
+                            
                             Build.aggregate([ { $match:  {'build_no':build_no,'test_type':"RTEST"}} ,{ $group: { _id: null, total_tests: { $sum: '$total_tests_count'}} } ]).then(function(data7){
-                                REST_total = data7[0].total_tests;
+                                if(data7  && data7.length > 0){
+                                   // console.log(data7)
+                                    REST_total = data7[0].total_tests;
+                                }
+                                else{
+                                    REST_total = 0;
+                                }
+                                
                                 Build.aggregate([ { $match:  {'build_no':build_no,'test_type':"RTEST"}} ,{ $group: { _id: null, total_passed: { $sum: '$total_tests_passed'}} } ]).then(function(data8){
-                                    REST_passed = data8[0].total_passed;
-                                    Build.aggregate([ { $match:  {'build_no':build_no,'test_type':"RTEST"}} ,{ $group: { _id: null, total_failed: { $sum: '$total_tests_failed'}} } ]).then(function(data8){
-                                        REST_failed = data8[0].total_failed;
+                                    if(data8  && data8.length > 0){
+                                        //console.log(data8);
+                                        REST_passed = data8[0].total_passed;
+                                    }
+                                    else{
+                                        REST_passed = 0;
+                                    }
+                                    
+                                    Build.aggregate([ { $match:  {'build_no':build_no,'test_type':"RTEST"}} ,{ $group: { _id: null, total_failed: { $sum: '$total_tests_failed'}} } ]).then(function(data9){
+                                        if(data9 && data9.length > 0){
+                                            //console.log(data9);
+                                            REST_failed = data9[0].total_failed;
+                                        }
+                                        else{
+                                            REST_failed = 0;
+                                        }
+                                        
                                          Build.aggregate([ { $match:  {'build_no':build_no,'test_type':"NEWUI"}} ,{ $group: { _id: null, total_tests: { $sum: '$total_tests_count'}} } ]).then(function(data10){
-                                             PROTRACTOR_total = data10[0].total_tests;
+                                           // console.log(data10);
+                                             if(data10.length > 0){
+                                                 console.log(data10);
+                                                PROTRACTOR_total = data10[0].total_tests;
+                                             }
+                                             else{
+                                                PROTRACTOR_total = 0;
+                                             }
+                                             
                                              Build.aggregate([ { $match:  {'build_no':build_no,'test_type':"NEWUI"}} ,{ $group: { _id: null, total_tests_passed: { $sum: '$total_tests_passed'}} } ]).then(function(data11){
-                                                 PROTRACTOR_passed = data11[0].total_tests_passed;
-                                                 Build.aggregate([ { $match:  {'build_no':build_no,'test_type':"NEWUI"}} ,{ $group: { _id: null, total_tests_failed: { $sum: '$total_tests_count'}} } ]).then(function(data12){
-                                                     PROTRACTOR_failed = data12[0].total_tests_failed;
-                                                     db.collection("metrics").insert({ build_no:build_no,XTHJTH_total: XTHJTH_total, XTHJTH_passed: XTHJTH_passed, XTHJTH_failed: XTHJTH_failed,
-                                                        UI_total:UI_total,UI_passed:UI_passed,UI_failed:UI_failed,
-                                                        REST_total:REST_total,REST_passed:REST_passed,REST_failed,
-                                                        PROTRACTOR_total:PROTRACTOR_total,PROTRACTOR_passed:PROTRACTOR_passed,PROTRACTOR_failed:PROTRACTOR_failed
-                                                     });
+                                                //console.log(data11);
+                                                if(data11  && data11.length > 0){
+                                                    console.log(data11);
+                                                    PROTRACTOR_passed = data11[0].total_tests_passed;
+                                                }
+                                                 
+                                                 else{
+                                                    PROTRACTOR_passed = 0;
+                                                 }
+                                                 
+                                                 Build.aggregate([ { $match:  {'build_no':build_no,'test_type':"NEWUI"}} ,{ $group: { _id: null, total_tests_failed: { $sum: '$total_tests_failed'}} } ]).then(function(data12){
+                                                   // console.log(data12);
+                                                    if(data12  && data12.length > 0){
+                                                        PROTRACTOR_failed = data12[0].total_tests_failed;
+                                                    }
+                                                      else{
+                                                      PROTRACTOR_failed = 0;    
+                                                      }
+                                                     // console.log(PROTRACTOR_failed);
+                                                     // console.log(PROTRACTOR_passed);
+                                                      db.collection("metrics").update( { 'build_no': build_no},
+													   	{ build_no:build_no,XTHJTH_total: XTHJTH_total, XTHJTH_passed: XTHJTH_passed, XTHJTH_failed: XTHJTH_failed,
+                                                        UI_total:UI_total,UI_passed:UI_passed,UI_failed:UI_failed, REST_total:REST_total,REST_passed:REST_passed,REST_failed, 
+                                                        PROTRACTOR_total:PROTRACTOR_total,PROTRACTOR_passed:PROTRACTOR_passed,PROTRACTOR_failed:PROTRACTOR_failed },
+                                                       { upsert: true } ); 
+                                                       
+                                                    //    db.collection("metrics").insert( 
+                                                    //    { build_no:build_no,XTHJTH_total: XTHJTH_total, XTHJTH_passed: XTHJTH_passed, XTHJTH_failed: XTHJTH_failed,
+                                                    // UI_total:UI_total,UI_passed:UI_passed,UI_failed:UI_failed, REST_total:REST_total,REST_passed:REST_passed,REST_failed, 
+                                                    // PROTRACTOR_total:PROTRACTOR_total,PROTRACTOR_passed:PROTRACTOR_passed,PROTRACTOR_failed:PROTRACTOR_failed }
+                                                    // ); 
+
                                                      callback("",{ build_no:build_no,XTHJTH_total: XTHJTH_total, XTHJTH_passed: XTHJTH_passed, XTHJTH_failed: XTHJTH_failed,
                                                                    UI_total:UI_total,UI_passed:UI_passed,UI_failed:UI_failed,
                                                                    REST_total:REST_total,REST_passed:REST_passed,REST_failed,
                                                                    PROTRACTOR_total:PROTRACTOR_total,PROTRACTOR_passed:PROTRACTOR_passed,PROTRACTOR_failed:PROTRACTOR_failed
                                                                 });
+                                                                deferred.resolve("inserted");
                                                     });
                                                 });
                                             });
@@ -139,4 +244,11 @@ module.exports.getFilteredData = function(build_no,component_name,database_type,
                 });
             });
         });
+        return deferred.promise;
     }
+
+
+
+
+   
+    
