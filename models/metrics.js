@@ -40,34 +40,29 @@ var buildsSchema = mongoose.Schema({
     }
 });
 
-
 var Build = module.exports = mongoose.model('Build',buildsSchema);
 module.exports.getBuilds = function(callback, limit){
-    Build.find(callback).limit(limit);
+   Build.find(callback).limit(limit);
 }
 
 module.exports.getByBuildNumber = function(build_no,callback){
     Build.find({'build_no':build_no},callback);
 } 
 
-
 module.exports.getBuilds = function(callback, limit){
     Build.find(callback).limit(limit);
 }
-
 
 module.exports.getAllBuildNumbers = function(callback){
     Build.distinct('build_no',callback);
     
 } 
 
-
 // Get metrics based on build number
 
 module.exports.getBuildByNumber = function(build_no,callback){
     Build.findById(build_no,callback);
 }
-
 
 module.exports.getAllTestCases = function(build_no,callback){
     Build.find().forEach(function(data) {
@@ -99,11 +94,22 @@ module.exports.getFilteredData = function(build_no,component_name,database_type,
         db.collection("summaryMetrics").insert(data);
         callback("",data);
     });
- }
+}
 
-
- module.exports.getTotalTestsForAllTestTypes = function(build_no,callback) {
+module.exports.getTotalTestsForAllTestTypes = function(build_no,callback) {
     var deferred = Q.defer();
+    let XTHJTH_total = 0;
+    let XTHJTH_passed = 0;
+    let XTHJTH_failed = 0;
+    let UI_total = 0;
+    let UI_passed = 0;
+    let UI_failed = 0;
+    let REST_total = 0;
+    let REST_passed = 0;
+    let REST_failed = 0;
+    let PROTRACTOR_total = 0;
+    let PROTRACTOR_passed = 0;
+    let PROTRACTOR_failed = 0;
     Build.aggregate([ { $match:  {'build_no':build_no,'test_type':"XTHJTH"}} ,{ $group: { _id: null, total_tests: { $sum: '$total_tests_count'}} } ]).then(function(data1){
 
         if(data1 && data1.length > 0){
@@ -212,21 +218,13 @@ module.exports.getFilteredData = function(build_no,component_name,database_type,
                                                       else{
                                                       PROTRACTOR_failed = 0;    
                                                       }
-                                                     // console.log(PROTRACTOR_failed);
-                                                     // console.log(PROTRACTOR_passed);
-                                                      db.collection("metrics").update( { 'build_no': build_no},
-													   	{ build_no:build_no,XTHJTH_total: XTHJTH_total, XTHJTH_passed: XTHJTH_passed, XTHJTH_failed: XTHJTH_failed,
+                                                       db.collection("metrics").update( { 'build_no': build_no},
+                                                        { build_no:build_no,XTHJTH_total: XTHJTH_total, XTHJTH_passed: XTHJTH_passed, XTHJTH_failed: XTHJTH_failed,
                                                         UI_total:UI_total,UI_passed:UI_passed,UI_failed:UI_failed, REST_total:REST_total,REST_passed:REST_passed,REST_failed, 
                                                         PROTRACTOR_total:PROTRACTOR_total,PROTRACTOR_passed:PROTRACTOR_passed,PROTRACTOR_failed:PROTRACTOR_failed },
                                                        { upsert: true } ); 
                                                        
-                                                    //    db.collection("metrics").insert( 
-                                                    //    { build_no:build_no,XTHJTH_total: XTHJTH_total, XTHJTH_passed: XTHJTH_passed, XTHJTH_failed: XTHJTH_failed,
-                                                    // UI_total:UI_total,UI_passed:UI_passed,UI_failed:UI_failed, REST_total:REST_total,REST_passed:REST_passed,REST_failed, 
-                                                    // PROTRACTOR_total:PROTRACTOR_total,PROTRACTOR_passed:PROTRACTOR_passed,PROTRACTOR_failed:PROTRACTOR_failed }
-                                                    // ); 
-
-                                                     callback("",{ build_no:build_no,XTHJTH_total: XTHJTH_total, XTHJTH_passed: XTHJTH_passed, XTHJTH_failed: XTHJTH_failed,
+                                                      callback("",{ build_no:build_no,XTHJTH_total: XTHJTH_total, XTHJTH_passed: XTHJTH_passed, XTHJTH_failed: XTHJTH_failed,
                                                                    UI_total:UI_total,UI_passed:UI_passed,UI_failed:UI_failed,
                                                                    REST_total:REST_total,REST_passed:REST_passed,REST_failed,
                                                                    PROTRACTOR_total:PROTRACTOR_total,PROTRACTOR_passed:PROTRACTOR_passed,PROTRACTOR_failed:PROTRACTOR_failed
@@ -246,9 +244,3 @@ module.exports.getFilteredData = function(build_no,component_name,database_type,
         });
         return deferred.promise;
     }
-
-
-
-
-   
-    
