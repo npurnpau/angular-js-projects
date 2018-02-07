@@ -11,7 +11,7 @@
                   <table border="4" class="table table-striped">
                                         <br><br>
                                     <TH rowspan="2" style="text-align:center">Builds</TH>
-                                    <TH style="text-align:center" colspan="3">XTH and JTH</TH>
+                                    <TH style="text-align:center"  colspan="3">XTH and JTH</TH>
                                     <TH style="text-align:center" colspan="3">Protractor NewUI</TH>
                                     <TH style="text-align:center" colspan="3">Rest</TH>
                                     <TH style="text-align:center" colspan="3">Selenium UI</TH>
@@ -36,8 +36,8 @@
                                         </TR>
 
                                                 <tr>
-                                                        <tr ng-repeat="metric in metrics.data">
-                                                                <td><b>{{metric.build_no}}</b></td>
+                                                        <tr ng-repeat="metric in metrics.data | orderBy : '-build_no'">
+                                                                <div ><td><a ng-href="#builds">{{metric.build_no}}</a></td></div>
                                                                 <td>{{metric.XTHJTH_total}}</td>
                                                                 <td>{{metric.XTHJTH_passed}}</td>
                                                                 <td>{{metric.XTHJTH_failed}}</td>

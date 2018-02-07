@@ -3,17 +3,18 @@ var myApp = angular.module('myApp',['ngRoute']);
 
 myApp.config(function($routeProvider){
     $routeProvider.when('/', {
-         controller : "BuildsController",
-         templateUrl : 'views/metricsDetails.html'
+        controller : "DashboardController",
+        templateUrl : 'views/dashboad.html'
 
      }) 
     .when('/builds', {
-        controller : "DashboardController",
-        templateUrl : 'views/dashboad.html'
+        controller : "BuildsController",
+         templateUrl : 'views/metricsDetails.html'
 
     })    
     .when('/dashboard',{
         controller : "DashboardController",
         templateUrl : 'views/dashboad.html'
     });
+    
 });
