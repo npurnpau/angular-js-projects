@@ -67,7 +67,15 @@ app.get('/api/buildNumberList',function(req,res){
                 }
             });
         }
-        res.json(builds);
+
+        Metrics.getTotalMetrics(function(err,metrics){
+            if(err){
+                throw err;
+            }
+            res.json(metrics);
+            console.log(metrics);
+        });
+        
     });
 }); 
 

@@ -14,7 +14,7 @@ var myApp = angular.module('myApp');
     $scope.builds1 = "hello";
     $http({
         method: 'GET',
-        url: '/api/builds'
+        url: '/api/buildNumberList'
     }).then(function successCallback(response) {
         console.log(response);
         $scope.builds1= response;
