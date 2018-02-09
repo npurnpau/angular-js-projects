@@ -39,3 +39,9 @@ myApp.service("getBuildNumber", function () {
         $location.path('/builds');
       };
    });
+
+   myApp.filter('round', function() {
+    return function(input) {
+        return Math.round(input*100)/100;
+    };
+});
