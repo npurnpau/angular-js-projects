@@ -10,7 +10,20 @@ var myApp = angular.module('myApp');
 //     }
 //  }]);
 
- myApp.controller('DashboardController', function ($scope, $http){
+myApp.service("getBuildNumber", function () {
+    var build_no = '';
+
+        return {
+            getProperty: function () {
+                return build_no;
+            },
+            setProperty: function(value) {
+                build_no = value;
+            }
+        };
+});
+
+ myApp.controller('DashboardController', function ($scope, $http, $location, getBuildNumber){
     $scope.builds1 = "hello";
     $http({
         method: 'GET',
@@ -19,6 +32,10 @@ var myApp = angular.module('myApp');
         console.log(response);
         $scope.builds1= response;
      },function errorCallback(response) {
-
     });
+    $scope.getBuildDetails = function(build_no) {
+        getBuildNumber.setProperty(build_no);
+        console.log('-------------------' + build_no);
+        $location.path('/builds');
+      };
    });

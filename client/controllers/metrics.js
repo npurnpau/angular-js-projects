@@ -1,8 +1,8 @@
 var myApp = angular.module('myApp');
- myApp.controller('BuildsController', function ($scope, $http){
+ myApp.controller('BuildsController', function ($scope, $http, getBuildNumber){
     $http({
         method: 'GET',
-        url: '/api/builds'
+        url: '/api/builds/'+getBuildNumber.getProperty()
     }).then(function successCallback(response) {
         $scope.builds= response;
      },function errorCallback(response) {

@@ -7,49 +7,46 @@
                 
                 <h2>Build wise test metrics</h2>
                 <div class="table-responsive">
-                <div ng-controller="DashboardController">
-                  <table border="4" class="table table-striped">
-                                        <br><br>
-                                    <TH rowspan="2" style="text-align:center">Builds</TH>
-                                    <TH style="text-align:center" colspan="3">XTH and JTH</TH>
-                                    <TH style="text-align:center" colspan="3">Protractor NewUI</TH>
-                                    <TH style="text-align:center" colspan="3">Rest</TH>
-                                    <TH style="text-align:center" colspan="3">Selenium UI</TH>
-                                        <TR><TH>Total Tests</TH>
-                                            <TH> Total Tests passed </TH>
-                                            <TH>Total Test Failed </TH>
-                                            <TH>Total Tests </TH>
-                                            <TH>Total Tests Passed </TH>
-                                            <TH>Total Test Failed </TH>
-                                            <TH>Total Tests </TH>
-                                            <TH> Total Tests passed</TH>
-                                            <TH>Total Test Failed </TH>
-                                            <TH>Total Tests </TH>
-                                            <TH> Total Tests passed</TH>
-                                            <TH>Total Test Failed </TH>
-                                        </TR>
-                                                <tr>
-                                                        <tr ng-repeat="metric in builds1.data | orderBy : '-build_no'">
-                                                                <div ><td><a ng-href="#builds">{{metric.build_no}}</a></td></div>
-                                                                <td>{{metric.XTHJTH_total}}</td>
-                                                                <td>{{metric.XTHJTH_passed}}</td>
-                                                                <td>{{metric.XTHJTH_failed}}</td>
-                                                                <td>{{metric.PROTRACTOR_total}}</td>
-                                                                <td>{{metric.PROTRACTOR_passed}}</td>
-                                                                <td>{{metric.PROTRACTOR_failed}}</td>
-                                                                <td>{{metric.REST_total}}</td>
-                                                                <td>{{metric.REST_passed}}</td>
-                                                                <td>{{metric.REST_failed}}</td>
-                                                                <td>{{metric.UI_total}}</td>
-                                                                <td>{{metric.UI_passed}}</td>
-                                                                <td>{{metric.UI_failed}}</td>
-                                                        </tr>   
-                                                </div>         
-
+                    <div ng-controller="DashboardController">
+                        <table border="4" class="table table-striped">
+                            <br><br>
+                            <TH rowspan="2" style="text-align:center">Builds</TH>
+                            <TH style="text-align:center" colspan="3">XTH and JTH</TH>
+                            <TH style="text-align:center" colspan="3">Protractor NewUI</TH>
+                            <TH style="text-align:center" colspan="3">Rest</TH>
+                            <TH style="text-align:center" colspan="3">Selenium UI</TH>
+                            <TR><TH>Total Tests</TH>
+                                <TH> Total Tests passed </TH>
+                                <TH>Total Test Failed </TH>
+                                <TH>Total Tests </TH>
+                                <TH>Total Tests Passed </TH>
+                                <TH>Total Test Failed </TH>
+                                <TH>Total Tests </TH>
+                                <TH> Total Tests passed</TH>
+                                <TH>Total Test Failed </TH>
+                                <TH>Total Tests </TH>
+                                <TH> Total Tests passed</TH>
+                                <TH>Total Test Failed </TH>
+                            </TR>
+                            <tr>
+                                <tr ng-repeat="metric in builds1.data | orderBy : '-build_no'">
+                                <div ><td><a ng-click="getBuildDetails(metric.build_no)" class="build-no" >{{metric.build_no}}</a></td></div>
+                                <td>{{metric.XTHJTH_total}}</td>
+                                <td>{{metric.XTHJTH_passed}}</td>
+                                <td>{{metric.XTHJTH_failed}}</td>
+                                <td>{{metric.PROTRACTOR_total}}</td>
+                                <td>{{metric.PROTRACTOR_passed}}</td>
+                                <td>{{metric.PROTRACTOR_failed}}</td>
+                                <td>{{metric.REST_total}}</td>
+                                <td>{{metric.REST_passed}}</td>
+                                <td>{{metric.REST_failed}}</td>
+                                <td>{{metric.UI_total}}</td>
+                                <td>{{metric.UI_passed}}</td>
+                                <td>{{metric.UI_failed}}</td>
+                            </tr>
+                        </table>
+                    </div>
                 </div>
-                </div>
-              </main>
-
+        </main>
 </div>
-
 </html>
