@@ -1,5 +1,6 @@
 var mongoose  = require('mongoose');
 var Q = require("q");
+var fs = require('fs');
 
 mongoose.connect('mongodb://10.131.227.154/Final-crt');
 var db = mongoose.connection;
@@ -69,6 +70,14 @@ module.exports.getAllTestCases = function(build_no,callback){
         Builds.update({_id:data._id},{$set:{total_tests_count:parseInt(data.total_tests_count)}});
     })
 }
+
+module.exports.getAllStaticMetrics = function(callback){
+fs.readFile('C:/js_projects/dashBoard_sample/client/sprintdata.json', (err, data) => {  
+    if (err) throw err;
+    let student = JSON.parse(data);
+    console.log(student);
+});
+}
     
 module.exports.getFilteredData = function(build_no,component_name,database_type,callback){
     //Build.find({'build_no':build_no},callback);
@@ -95,6 +104,8 @@ module.exports.getFilteredData = function(build_no,component_name,database_type,
         callback("",data);
     });
 }
+
+
 
 module.exports.getTotalTestsForAllTestTypes = function(build_no,callback) {
     var deferred = Q.defer();

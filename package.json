@@ -9,6 +9,7 @@
   "dependencies": {
     "body-parser": "*",
     "express": "*",
+    "fs": "0.0.1-security",
     "mongoose": "*",
     "q": "^1.5.1"
   },

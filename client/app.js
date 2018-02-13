@@ -15,6 +15,10 @@ myApp.config(function($routeProvider){
     .when('/dashboard',{
         controller : "DashboardController",
         templateUrl : 'views/dashboad.html'
+    })
+    .when('/sprints',{
+        controller : "sprintsMetrics",
+        templateUrl : 'views/sprint.html'
     });
     
 });

@@ -1,18 +1,7 @@
 var myApp = angular.module('myApp');
 
-//  myApp.controller('BuildsController',['$scope','$http','$location','$routeParams',function($scope,$http,$location,$routeParams){
-//     $scope.builds= "hello";
-//      console.log('builds controller loaded......');
-//      $scope.getBuilds = function() {
-//          $http.get('/api/builds').succes(function(response){
-//              $scope.builds= response;
-//          });
-//     }
-//  }]);
-
 myApp.service("getBuildNumber", function () {
     var build_no = '';
-
         return {
             getProperty: function () {
                 return build_no;

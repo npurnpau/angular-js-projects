@@ -19,12 +19,20 @@
       
               <div class="collapse navbar-collapse" id="navbarsExampleDefault">
                 <ul class="navbar-nav mr-auto">
-                   <li class="nav-item active">
-                      <h3><a class="nav-link" href="/#!">Build-Wise Metrics</a></h3>
-                  </li> 
-                  <li class="nav-item">
-                      <h3><a class="nav-link" href="#!builds">Detailed Build Metrics</a></h3>
-                  </li>
+                <li class="nav-item">
+                    <h3><a class="nav-link" href="#!sprints">Sprint Wise Metrics</a></h3>
+                </li>
+                <li class="nav-item active">
+                    <h3><a class="nav-link" href="/#!">Build-Wise Metrics</a></h3>
+                </li> 
+                <div ng-controller="BuildsController">
+                <li class="nav-item">
+                    <h3><a class="nav-link" href="#!builds" onclick="getAllBuilds()">Detailed Build Metrics</a></h3>
+                </li>
+                </div>
+
+                
+
                   <!-- <li class="nav-item">
                       <h3><a class="nav-link" href="#dashboard">Build-wise Metrics</a></h3>
                   </li> -->
@@ -47,7 +55,8 @@
         <script src = "app.js"></script>
         <script src = "controllers/metrics.js"></script> 
         <script src = "controllers/dashboard.js"></script> 
-        
+        <script src = "controllers/sprints.js"></script> 
+    
        
         <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
     <script>window.jQuery || document.write('<script src="../../../../assets/js/vendor/jquery-slim.min.js"><\/script>')</script>

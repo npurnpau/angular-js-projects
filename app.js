@@ -10,6 +10,7 @@ mongoose.connect('mongodb://10.131.227.154/Final-crt');
 Build = require('./models/metrics');
 Metrics = require('./models/results');
 var db = mongoose.connection;
+var fs = require('fs');
 
 app.use(express.static(__dirname+'/client'));
 
@@ -25,6 +26,16 @@ app.get('/api/builds', function(req,res){
 
 app.get('/api/metrics', function(req,res){
     Metrics.getTotalMetrics(function(err,metrics){
+        if(err){
+            throw err;
+        }
+        res.json(metrics);
+        console.log(metrics);
+    })
+});
+
+app.get('/api/metricsLatest', function(req,res){
+    Metrics.getLatestMetric(function(err,metrics){
         if(err){
             throw err;
         }
@@ -78,6 +89,20 @@ app.get('/api/buildNumberList',function(req,res){
         
     });
 }); 
+
+app.get('/api/staticSprints',function(req,res){
+    Build.getAllStaticMetrics(function(err,sprintData){
+        if(err){
+            throw err;
+        }
+        res;
+    });
+ }); 
+
+
+
+
+
 
 app.listen(3000);
 console.log("running on port 3000");

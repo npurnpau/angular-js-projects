@@ -48,13 +48,13 @@ var metricsSchema = mongoose.Schema({
 
 var Metric = module.exports = mongoose.model('Metric',metricsSchema);
 
-// module.exports.getTotalMetrics = function(callback){
-//     Metric.find(callback).then(function(data){
-//         Metric.find(callback).limit(limit);
-//     });
-    
-
-
-    module.exports.getTotalMetrics = function(callback, limit){
+module.exports.getTotalMetrics = function(callback, limit){
         Metric.find(callback).limit(limit);
 }
+
+
+module.exports.getLatestMetric = function(callback){
+    Metric.find(callback).sort({_id:-1}).limit(1);
+    //Build.find({'build_no':build_no,'database_type':database_type,'component_name':component_name},callback);
+}
+
