@@ -2,7 +2,7 @@
 
        
     <div>
-           <main role="main" class="col-sm-9 ml-sm-auto col-md-15 pt-3">
+           <main role="main" class="col-sm-9 ml-sm-auto col-md-20 pt-3">
                <br><br><br><br>
                    <h1>Sprint Wise Metrics</h1>
                    <br><div>
@@ -38,7 +38,7 @@
                             </TR>
                            <tr>
                             <tr ng-repeat="sprint in prd.data">
-                            <td>Current Sprint </td>
+                            <td><b>Sprint 6</b></td>
                             <td onmouseout="this.bgColor='#f2f7f0'"  onmouseover="this.bgColor='#fcdbd2';"><a ng-click="getBuildDetails(sprint.build_no)" class="build-no">{{sprint.build_no}}</a></td>
                             <td onmouseout="this.bgColor='#f2f7f0'"  onmouseover="this.bgColor='#fcdbd2';">{{sprint.XTHJTH_total}}</td>
                             <!-- <td>{{metric.XTHJTH_passed}}</td> -->
@@ -66,7 +66,7 @@
                 <br><br>
                    <h2>Previous Sprint Metrics</h2>
                    <div class="table-responsive">
-                        <div ng-controller="sprintsMetrics" ng-init="getLatestMetric()">
+                        <div ng-controller="sprintsPreviousMetrics" ng-init="getStaticSprintData()">
                           <table border="4" class="table table-striped">
                                  <TH rowspan="2" style="text-align:center">Sprints</TH>
                                  <TH rowspan="2" style="text-align:center">Builds</TH>
@@ -95,7 +95,7 @@
                                  </TR>
                                 <tr>
                                  <tr ng-repeat="sprint in prd.data">
-                                 <td>Current Sprint </td>
+                                 <td ><b>{{sprint.sprint_name}} </b></td>
                                  <td onmouseout="this.bgColor='#f2f7f0'"  onmouseover="this.bgColor='#fcdbd2';"><a ng-click="getBuildDetails(sprint.build_no)" class="build-no">{{sprint.build_no}}</a></td>
                                  <td onmouseout="this.bgColor='#f2f7f0'"  onmouseover="this.bgColor='#fcdbd2';">{{sprint.XTHJTH_total}}</td>
                                  <!-- <td>{{metric.XTHJTH_passed}}</td> -->
@@ -113,9 +113,9 @@
                                  <!-- <td>{{metric.UI_passed}}</td> -->
                                  <td onmouseout="this.bgColor='#f2f7f0'"  onmouseover="this.bgColor='#fcdbd2';">{{sprint.UI_failed}}</td>
                                  <td onmouseout="this.bgColor='#f2f7f0'"  onmouseover="this.bgColor='#fcdbd2';">{{sprint.UI_passed / sprint.UI_total * 100 | round}} %</td>
-                                 <td><textarea rows="3" cols="30" id="commentsForSprint" onfocus="myFunction(this.id)" onblur="myFunction1(this.id)">
-                                         
-                                         </textarea></td>
+                                 <!-- <td><textarea rows="3" cols="30" id="commentsForSprint" onfocus="myFunction(this.id)" onblur="myFunction1(this.id)">
+                                </textarea></td> -->
+                                 <td rows="3" cols="30">{{sprint.sprint_comments}}</td>        
                              </tr>                                  
                             </table>
                         </div>

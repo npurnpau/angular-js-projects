@@ -50,6 +50,18 @@ module.exports.getByBuildNumber = function(build_no,callback){
     Build.find({'build_no':build_no},callback);
 } 
 
+module.exports.getStaticSprintData = function(callback) {
+
+    fs.readFile('C:/js_projects/dashBoard_sample/client/sprintdata.json','utf8',function(err, sprints){  
+        if (err) throw err;
+       var data = sprints.replace(/(\r\n|\n|\r)/gm,"");
+        var obj = JSON.parse(data);
+        callback("",obj);
+    });
+}
+
+
+
 module.exports.getBuilds = function(callback, limit){
     Build.find(callback).limit(limit);
 }
@@ -74,8 +86,8 @@ module.exports.getAllTestCases = function(build_no,callback){
 module.exports.getAllStaticMetrics = function(callback){
 fs.readFile('C:/js_projects/dashBoard_sample/client/sprintdata.json', (err, data) => {  
     if (err) throw err;
-    let student = JSON.parse(data);
-    console.log(student);
+    let sprints = JSON.parse(data);
+    console.log(sprints);
 });
 }
     

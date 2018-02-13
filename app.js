@@ -24,6 +24,15 @@ app.get('/api/builds', function(req,res){
 
 });
 
+app.get('/api/staticSprints',function(req,res){
+    Build.getStaticSprintData(function(err,sprints){
+        if(err){
+            throw err;
+        }
+        res.json(sprints);
+    });
+}); 
+
 app.get('/api/metrics', function(req,res){
     Metrics.getTotalMetrics(function(err,metrics){
         if(err){
@@ -90,14 +99,7 @@ app.get('/api/buildNumberList',function(req,res){
     });
 }); 
 
-app.get('/api/staticSprints',function(req,res){
-    Build.getAllStaticMetrics(function(err,sprintData){
-        if(err){
-            throw err;
-        }
-        res;
-    });
- }); 
+
 
 
 
