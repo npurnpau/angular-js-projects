@@ -1,0 +1,38 @@
+<html ng-app="myApp">
+<body>
+<div>
+    <main role="main" class="col-sm-9 ml-sm-auto col-md-20 pt-3">
+        <br><br>
+        <div class="table-responsive">
+            <div ng-controller="sprintsMetricsExec" ng-init="getSprintMetric()">
+                <h1>{{prd.data[0].release}}/{{prd.data[0].pi}}</h1>
+                <table id="tableID" class="table" style="width:100%; position: absolute;">
+                    <col style="width:10%">
+                    <col style="width:10%">
+                    <col style="width:15%">
+                    <col style="width:15%">
+                    <col style="width:15%">
+                    <col style="width:15%">
+                    <TH bgcolor="#F2F2F2" style="text-align:center">Sprints</TH>
+                    <TH bgcolor="#F2F2F2" style="text-align:center">Builds</TH>
+                    <TH bgcolor="#F2F2F2" style="text-align:center">XTH and JTH</TH>
+                    <TH bgcolor="#F2F2F2" style="text-align:center">Protractor NewUI</TH>
+                    <TH bgcolor="#F2F2F2" style="text-align:center">Rest</TH>
+                    <TH bgcolor="#F2F2F2" style="text-align:center">Selenium UI</TH>
+                    <!--<TH bgcolor="#F2F2F2" style="text-align:center">Comments / Remarks</TH>-->
+                    <tr id="rows" ng-repeat="sprint in prd.data">
+                        <td >{{sprint.sprint}}</td>
+                        <td ><a ng-click="getBuildDetails(sprint.build_no)" class="build-no" style="color:blue;">{{sprint.build_no}}</a></td>
+                        <td ng-class="{'red': (sprint.buildDetails[0].XTHJTH_passed < 70), 'green': (sprint.buildDetails[0].XTHJTH_passed >90)}">{{sprint.buildDetails[0].XTHJTH_passed}}</td>
+                        <td ng-class="{'red': (sprint.buildDetails[0].PROTRACTOR_passed < 70), 'green': (sprint.buildDetails[0].PROTRACTOR_passed >90)}">{{sprint.buildDetails[0].PROTRACTOR_passed}}</td>
+                        <td ng-class="{'red': (sprint.buildDetails[0].REST_passed < 70), 'green': (sprint.buildDetails[0].REST_passed >90)}">{{sprint.buildDetails[0].REST_passed}}</td>
+                        <td ng-class="{'red': (sprint.buildDetails[0].UI_passed < 70), 'green': (sprint.buildDetails[0].UI_passed >90)}">{{sprint.buildDetails[0].UI_passed}}</td>
+                        <!--<td>{{sprint.comments}}</td>-->
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </main>
+</div>
+</body>
+</html>

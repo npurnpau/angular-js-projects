@@ -19,6 +19,10 @@ myApp.config(function($routeProvider){
     .when('/sprints',{
         controller : "sprintsMetrics",
         templateUrl : 'views/sprint.html'
+    })
+    .when('/sprintExecutive',{
+        controller : "sprintsMetricsExec",
+        templateUrl : 'views/sprint_exec.html'
     });
     
 });
