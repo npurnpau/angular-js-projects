@@ -41,26 +41,114 @@ var buildsSchema = mongoose.Schema({
     }
 });
 
+var sprintMetricsSchema = mongoose.Schema({
+    release : {
+        type:String,
+    },
+    pi : {
+        type:String,
+    },
+    sprint : {
+        type:String,
+    },
+    build_no : {
+        type:String,
+    },
+    XTHJTH_total : {
+        type:Number,
+    },
+    XTHJTH_passed:{
+        type:Number,
+    },
+    XTHJTH_failed:{
+        type:Number,
+    },
+    PROTRACTOR_total:{
+        type:Number,
+    },
+    PROTRACTOR_passed:{
+        type:Number,
+    },
+    PROTRACTOR_failed:{
+        type:Number,
+    },
+    REST_total:{
+        type:Number,
+    },
+    REST_passed:{
+        type:Number,
+    },
+    REST_failed:{
+        type:Number,
+    },
+    UI_total:{
+        type:Number,
+    },
+    UI_passed:{
+        type:Number,
+    },
+    UI_failed:{
+        type:Number,
+    },
+    comments:{
+        type:String,
+    }
+});
+
+var Sprint = module.exports = mongoose.model('Sprint',sprintMetricsSchema);
 var Build = module.exports = mongoose.model('Build',buildsSchema);
+
 module.exports.getBuilds = function(callback, limit){
    Build.find(callback).limit(limit);
+}
+module.exports.getSprintMetric = function(callback, limit){
+//   Sprint.find(callback).limit(limit);
+
+     db.collection('sprints').aggregate([
+       { $lookup:
+          {
+            from: 'metrics',
+            localField: 'build_no',
+            foreignField: 'build_no',
+            as: 'buildDetails'
+          }
+        }
+       ]).toArray(function(err, res) {
+       if (err) throw err;
+//       var j = JSON.stringify(res)
+//       console.log(res);
+       callback("",res);
+     });
+}
+
+module.exports.getLatestBuildNumber = function(callback){
+    Build.find({}, {'build_no':1, '_id':0}, callback).sort({build_no:-1}).limit(1);
+}
+
+module.exports.insertLatestBuildNumber = function(release, pi, sprint, max_build, callback){
+    db.collection("sprints").update( { 'release': release, 'pi':pi, 'sprint': sprint},
+                                     {$set: { release:release,pi: pi, sprint: sprint, build_no: max_build }},
+                                     { upsert: true } );
+}
+
+module.exports.updateComments = function(build_no, comments, callback){
+    db.collection("sprints").update({ 'build_no': build_no}, {$set:{'comments':comments}});
+    callback("", "");
 }
 
 module.exports.getByBuildNumber = function(build_no,callback){
     Build.find({'build_no':build_no},callback);
 } 
 
-module.exports.getStaticSprintData = function(callback) {
-
-    fs.readFile('C:/js_projects/dashBoard_sample/client/sprintdata.json','utf8',function(err, sprints){  
-        if (err) throw err;
-       var data = sprints.replace(/(\r\n|\n|\r)/gm,"");
-        var obj = JSON.parse(data);
-        callback("",obj);
-    });
-}
-
-
+//module.exports.getStaticSprintData = function(callback) {
+//
+//    fs.readFile('C:/js_projects/dashBoard_sample/client/sprintdata.json','utf8',function(err, sprints){
+//        if (err) throw err;
+//       var data = sprints.replace(/(\r\n|\n|\r)/gm,"");
+//        var obj = JSON.parse(data);
+//        callback("",obj);
+//    });
+//}
 
 module.exports.getBuilds = function(callback, limit){
     Build.find(callback).limit(limit);

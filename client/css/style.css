@@ -2,3 +2,18 @@
     cursor: pointer;
     text-decoration: underline !important;
 }
+td {border:none;}
+th {border:none;}
+textarea {
+    border: none;
+    overflow: visible;
+}
+.red {
+    background-color: red;
+}
+.yellow {
+    background-color: yellow;
+}
+.green {
+    background-color: green;
+}

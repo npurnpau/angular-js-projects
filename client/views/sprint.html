@@ -1,137 +1,55 @@
 <html ng-app="myApp">
+    <body>
+       <div>
+        <main role="main" class="col-sm-9 ml-sm-auto col-md-20 pt-3">
+           <br><br>
+           <div class="table-responsive">
+               <div ng-controller="sprintsMetrics" ng-init="getSprintMetric()">
+                   <h1>{{prd.data[0].release}}/{{prd.data[0].pi}}</h1>
+                   <table id="tableID" class="table" style="height:100%;width:100%; position: absolute;">
+                        <TH bgcolor="#F2F2F2" rowspan="2" style="text-align:center" >Sprints</TH>
+                        <TH bgcolor="#F2F2F2" rowspan="2" style="text-align:center">Builds</TH>
+                        <TH bgcolor="#F2F2F2" style="text-align:center" colspan="3">XTH and JTH</TH>
+                        <TH bgcolor="#F2F2F2" style="text-align:center" colspan="3">Protractor NewUI</TH>
+                        <TH bgcolor="#F2F2F2" style="text-align:center" colspan="3">Rest</TH>
+                        <TH bgcolor="#F2F2F2" style="text-align:center" colspan="3">Selenium UI</TH>
+                        <TH bgcolor="#F2F2F2" rowspan="2" style="text-align:center" colspan="3">Comments / Remarks</TH>
 
-       
-    <div>
-           <main role="main" class="col-sm-9 ml-sm-auto col-md-20 pt-3">
-               <br><br><br><br>
-                   <h1>Sprint Wise Metrics</h1>
-                   <br><div>
-                   <h2>Current Sprint Metrics</h2>
-                   <br>
-                   <div class="table-responsive">
-                   <div ng-controller="sprintsMetrics" ng-init="getLatestMetric()">
-                     <table border="4" class="table table-striped">
-                            <TH rowspan="2" style="text-align:center">Sprints</TH>
-                            <TH rowspan="2" style="text-align:center">Builds</TH>
-                            <TH style="text-align:center" colspan="3">XTH and JTH</TH>
-                            <TH style="text-align:center" colspan="3">Protractor NewUI</TH>
-                            <TH style="text-align:center" colspan="3">Rest</TH>
-                            <TH style="text-align:center" colspan="3">Selenium UI</TH>
-                            <TH rowspan="2" style="text-align:center" colspan="3">Comments / Remarks</TH>
-
-                                <TR><TH>Total</TH>
-                                <!-- <TH> Total Tests passed </TH> -->
-                                <TH>Failed </TH>
-                                <TH>% of Pass</TH>
-                                <TH>Total</TH>
-                                <!-- <TH> Total Tests passed </TH> -->
-                                <TH> Failed </TH>
-                                <TH>% of Pass</TH>
-                                <TH>Total </TH>
-                                <!-- <TH> Total Tests passed </TH> -->
-                                <TH> Failed </TH>
-                                <TH>% of Pass</TH>
-                                <TH>Total </TH>
-                                <!-- <TH> Total Tests passed </TH> -->
-                                <TH>Failed </TH>
-                                <TH>% of Pass</TH>
-                            </TR>
-                           <tr>
-                            <tr ng-repeat="sprint in prd.data">
-                            <td><b>Sprint 6</b></td>
-                            <td onmouseout="this.bgColor='#f2f7f0'"  onmouseover="this.bgColor='#fcdbd2';"><a ng-click="getBuildDetails(sprint.build_no)" class="build-no">{{sprint.build_no}}</a></td>
-                            <td onmouseout="this.bgColor='#f2f7f0'"  onmouseover="this.bgColor='#fcdbd2';">{{sprint.XTHJTH_total}}</td>
-                            <!-- <td>{{metric.XTHJTH_passed}}</td> -->
-                            <td onmouseout="this.bgColor='#f2f7f0'"  onmouseover="this.bgColor='#fcdbd2';">{{sprint.XTHJTH_failed}}</td>
-                            <td onmouseout="this.bgColor='#f2f7f0'"  onmouseover="this.bgColor='#fcdbd2';">{{sprint.XTHJTH_passed / sprint.XTHJTH_total * 100 | round}} %</td>
-                            <td onmouseout="this.bgColor='#f2f7f0'"  onmouseover="this.bgColor='#fcdbd2';">{{sprint.PROTRACTOR_total}}</td>
-                            <!-- <td>{{metric.PROTRACTOR_passed}}</td> -->
-                            <td onmouseout="this.bgColor='#f2f7f0'"  onmouseover="this.bgColor='#fcdbd2';">{{sprint.PROTRACTOR_failed}}</td>
-                            <td onmouseout="this.bgColor='#f2f7f0'"  onmouseover="this.bgColor='#fcdbd2';">{{sprint.PROTRACTOR_passed / sprint.PROTRACTOR_total * 100 | round}} % </td>
-                            <td  onmouseout="this.bgColor='#f2f7f0'"  onmouseover="this.bgColor='#fcdbd2';">{{sprint.REST_total}}</td>
-                            <!-- <td>{{metric.REST_passed}}</td> -->
-                            <td onmouseout="this.bgColor='#f2f7f0'"  onmouseover="this.bgColor='#fcdbd2';">{{sprint.REST_failed}}</td>
-                            <td onmouseout="this.bgColor='#f2f7f0'"  onmouseover="this.bgColor='#fcdbd2';">{{sprint.REST_passed / sprint.REST_total * 100 | round }} %</td>
-                            <td  onmouseout="this.bgColor='#f2f7f0'"  onmouseover="this.bgColor='#fcdbd2';">{{sprint.UI_total}}</td>
-                            <!-- <td>{{metric.UI_passed}}</td> -->
-                            <td onmouseout="this.bgColor='#f2f7f0'"  onmouseover="this.bgColor='#fcdbd2';">{{sprint.UI_failed}}</td>
-                            <td onmouseout="this.bgColor='#f2f7f0'"  onmouseover="this.bgColor='#fcdbd2';">{{sprint.UI_passed / sprint.UI_total * 100 | round}} %</td>
-                            <td><textarea rows="3" cols="30" id="commentsForSprint" onfocus="myFunction(this.id)" onblur="myFunction1(this.id)">
-                                    
-                                    </textarea></td>
-                        </tr>                                  
-                       </table>
-                   </div>
-                   </div>
-                <br><br>
-                   <h2>Previous Sprint Metrics</h2>
-                   <div class="table-responsive">
-                        <div ng-controller="sprintsPreviousMetrics" ng-init="getStaticSprintData()">
-                          <table border="4" class="table table-striped">
-                                 <TH rowspan="2" style="text-align:center">Sprints</TH>
-                                 <TH rowspan="2" style="text-align:center">Builds</TH>
-                                 <TH style="text-align:center" colspan="3">XTH and JTH</TH>
-                                 <TH style="text-align:center" colspan="3">Protractor NewUI</TH>
-                                 <TH style="text-align:center" colspan="3">Rest</TH>
-                                 <TH style="text-align:center" colspan="3">Selenium UI</TH>
-                                 <TH rowspan="2" style="text-align:center" colspan="3">Comments / Remarks</TH>
-     
-                                     <TR><TH>Total</TH>
-                                     <!-- <TH> Total Tests passed </TH> -->
-                                     <TH>Failed </TH>
-                                     <TH>% of Pass</TH>
-                                     <TH>Total</TH>
-                                     <!-- <TH> Total Tests passed </TH> -->
-                                     <TH> Failed </TH>
-                                     <TH>% of Pass</TH>
-                                     <TH>Total </TH>
-                                     <!-- <TH> Total Tests passed </TH> -->
-                                     <TH> Failed </TH>
-                                     <TH>% of Pass</TH>
-                                     <TH>Total </TH>
-                                     <!-- <TH> Total Tests passed </TH> -->
-                                     <TH>Failed </TH>
-                                     <TH>% of Pass</TH>
-                                 </TR>
-                                <tr>
-                                 <tr ng-repeat="sprint in prd.data">
-                                 <td ><b>{{sprint.sprint_name}} </b></td>
-                                 <td onmouseout="this.bgColor='#f2f7f0'"  onmouseover="this.bgColor='#fcdbd2';"><a ng-click="getBuildDetails(sprint.build_no)" class="build-no">{{sprint.build_no}}</a></td>
-                                 <td onmouseout="this.bgColor='#f2f7f0'"  onmouseover="this.bgColor='#fcdbd2';">{{sprint.XTHJTH_total}}</td>
-                                 <!-- <td>{{metric.XTHJTH_passed}}</td> -->
-                                 <td onmouseout="this.bgColor='#f2f7f0'"  onmouseover="this.bgColor='#fcdbd2';">{{sprint.XTHJTH_failed}}</td>
-                                 <td onmouseout="this.bgColor='#f2f7f0'"  onmouseover="this.bgColor='#fcdbd2';">{{sprint.XTHJTH_passed / sprint.XTHJTH_total * 100 | round}} %</td>
-                                 <td onmouseout="this.bgColor='#f2f7f0'"  onmouseover="this.bgColor='#fcdbd2';">{{sprint.PROTRACTOR_total}}</td>
-                                 <!-- <td>{{metric.PROTRACTOR_passed}}</td> -->
-                                 <td onmouseout="this.bgColor='#f2f7f0'"  onmouseover="this.bgColor='#fcdbd2';">{{sprint.PROTRACTOR_failed}}</td>
-                                 <td onmouseout="this.bgColor='#f2f7f0'"  onmouseover="this.bgColor='#fcdbd2';">{{sprint.PROTRACTOR_passed / sprint.PROTRACTOR_total * 100 | round}} % </td>
-                                 <td  onmouseout="this.bgColor='#f2f7f0'"  onmouseover="this.bgColor='#fcdbd2';">{{sprint.REST_total}}</td>
-                                 <!-- <td>{{metric.REST_passed}}</td> -->
-                                 <td onmouseout="this.bgColor='#f2f7f0'"  onmouseover="this.bgColor='#fcdbd2';">{{sprint.REST_failed}}</td>
-                                 <td onmouseout="this.bgColor='#f2f7f0'"  onmouseover="this.bgColor='#fcdbd2';">{{sprint.REST_passed / sprint.REST_total * 100 | round }} %</td>
-                                 <td  onmouseout="this.bgColor='#f2f7f0'"  onmouseover="this.bgColor='#fcdbd2';">{{sprint.UI_total}}</td>
-                                 <!-- <td>{{metric.UI_passed}}</td> -->
-                                 <td onmouseout="this.bgColor='#f2f7f0'"  onmouseover="this.bgColor='#fcdbd2';">{{sprint.UI_failed}}</td>
-                                 <td onmouseout="this.bgColor='#f2f7f0'"  onmouseover="this.bgColor='#fcdbd2';">{{sprint.UI_passed / sprint.UI_total * 100 | round}} %</td>
-                                 <!-- <td><textarea rows="3" cols="30" id="commentsForSprint" onfocus="myFunction(this.id)" onblur="myFunction1(this.id)">
-                                </textarea></td> -->
-                                 <td rows="3" cols="30">{{sprint.sprint_comments}}</td>        
-                             </tr>                                  
-                            </table>
-                        </div>
-                        </div>
-                 
-
-   </div>
-</div>
-   </html>
-
-   <script>
-        function myFunction(x) {
-            document.getElementById(x).style.background = '#fcdbd2';
-        }
-        function myFunction1(x) {
-            document.getElementById(x).style.background = '#f2f7f0';
-        }
-
-</script>
+                        <TR>
+                            <TH bgcolor="#F2F2F2">Total</TH>
+                            <TH bgcolor="#F2F2F2">Failed </TH>
+                            <TH bgcolor="#F2F2F2">% of Pass</TH>
+                            <TH bgcolor="#F2F2F2">Total</TH>
+                            <TH bgcolor="#F2F2F2"> Failed </TH>
+                            <TH bgcolor="#F2F2F2">% of Pass</TH>
+                            <TH bgcolor="#F2F2F2">Total </TH>
+                            <TH bgcolor="#F2F2F2"> Failed </TH>
+                            <TH bgcolor="#F2F2F2">% of Pass</TH>
+                            <TH bgcolor="#F2F2F2">Total </TH>
+                            <TH bgcolor="#F2F2F2">Failed </TH>
+                            <TH bgcolor="#F2F2F2">% of Pass</TH>
+                        </TR>
+                        <tr id="rows" ng-repeat="sprint in prd.data">
+                            <td onmouseout="this.bgColor='#f2f7f0'"  onmouseover="this.bgColor='#fcdbd2';">{{sprint.sprint}}</td>
+                            <td onmouseout="this.bgColor='#f2f7f0'"  onmouseover="this.bgColor='#fcdbd2';"><a ng-click="getBuildDetails(sprint.build_no)" class="build-no" style="color:blue;">{{sprint.build_no}}</a></td>
+                            <td onmouseout="this.bgColor='#f2f7f0'"  onmouseover="this.bgColor='#fcdbd2';">{{sprint.buildDetails[0].XTHJTH_total}}</td>
+                            <td onmouseout="this.bgColor='#f2f7f0'"  onmouseover="this.bgColor='#fcdbd2';">{{sprint.buildDetails[0].XTHJTH_failed}}</td>
+                            <td onmouseout="this.bgColor='#f2f7f0'"  onmouseover="this.bgColor='#fcdbd2';" ng-class="{'red': ((sprint.buildDetails[0].XTHJTH_passed / sprint.buildDetails[0].XTHJTH_total * 100) < 70), 'green': ((sprint.buildDetails[0].XTHJTH_passed / sprint.buildDetails[0].XTHJTH_total * 100) >90)}">{{sprint.buildDetails[0].XTHJTH_passed / sprint.buildDetails[0].XTHJTH_total * 100 | round}}</td>
+                            <td onmouseout="this.bgColor='#f2f7f0'"  onmouseover="this.bgColor='#fcdbd2';">{{sprint.buildDetails[0].PROTRACTOR_total}}</td>
+                            <td onmouseout="this.bgColor='#f2f7f0'"  onmouseover="this.bgColor='#fcdbd2';">{{sprint.buildDetails[0].PROTRACTOR_failed}}</td>
+                            <td onmouseout="this.bgColor='#f2f7f0'"  onmouseover="this.bgColor='#fcdbd2';">{{sprint.buildDetails[0].PROTRACTOR_passed / sprint.buildDetails[0].PROTRACTOR_total * 100 | round}}</td>
+                            <td  onmouseout="this.bgColor='#f2f7f0'"  onmouseover="this.bgColor='#fcdbd2';">{{sprint.buildDetails[0].REST_total}}</td>
+                            <td onmouseout="this.bgColor='#f2f7f0'"  onmouseover="this.bgColor='#fcdbd2';">{{sprint.buildDetails[0].REST_failed}}</td>
+                            <td onmouseout="this.bgColor='#f2f7f0'"  onmouseover="this.bgColor='#fcdbd2';">{{sprint.buildDetails[0].REST_passed / sprint.buildDetails[0].REST_total * 100 | round }}</td>
+                            <td  onmouseout="this.bgColor='#f2f7f0'"  onmouseover="this.bgColor='#fcdbd2';">{{sprint.buildDetails[0].UI_total}}</td>
+                            <td onmouseout="this.bgColor='#f2f7f0'"  onmouseover="this.bgColor='#fcdbd2';">{{sprint.buildDetails[0].UI_failed}}</td>
+                            <td onmouseout="this.bgColor='#f2f7f0'"  onmouseover="this.bgColor='#fcdbd2';" ng-class="{'red': ((sprint.buildDetails[0].UI_passed / sprint.buildDetails[0].UI_total * 100) < 70), 'green': ((sprint.buildDetails[0].UI_passed / sprint.buildDetails[0].UI_total * 100) >90)}">{{sprint.buildDetails[0].UI_passed / sprint.buildDetails[0].UI_total * 100 | round}}</td>
+                            <td><textarea rows="3" cols="100" id="commentsForSprint"  ng-blur="updateComment($event, sprint.build_no)" ng-model="sprint.comments"  ></textarea></td>
+                        </tr>
+                   </table>
+               </div>
+           </div>
+        </main>
+       </div>
+    </body>
+</html>

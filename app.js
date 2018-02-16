@@ -13,6 +13,8 @@ var db = mongoose.connection;
 var fs = require('fs');
 
 app.use(express.static(__dirname+'/client'));
+app.use(bodyParser.json()); // support json encoded bodies
+app.use(bodyParser.urlencoded({ extended: true })); // support encoded bodies
 
 app.get('/api/builds', function(req,res){
     Build.getBuilds(function(err,ds){
@@ -24,14 +26,14 @@ app.get('/api/builds', function(req,res){
 
 });
 
-app.get('/api/staticSprints',function(req,res){
-    Build.getStaticSprintData(function(err,sprints){
-        if(err){
-            throw err;
-        }
-        res.json(sprints);
-    });
-}); 
+//app.get('/api/staticSprints',function(req,res){
+//    Build.getStaticSprintData(function(err,sprints){
+//        if(err){
+//            throw err;
+//        }
+//        res.json(sprints);
+//    });
+//});
 
 app.get('/api/metrics', function(req,res){
     Metrics.getTotalMetrics(function(err,metrics){
@@ -39,7 +41,7 @@ app.get('/api/metrics', function(req,res){
             throw err;
         }
         res.json(metrics);
-        console.log(metrics);
+//        console.log(metrics);
     })
 });
 
@@ -49,7 +51,7 @@ app.get('/api/metricsLatest', function(req,res){
             throw err;
         }
         res.json(metrics);
-        console.log(metrics);
+//        console.log(metrics);
     })
 });
 
@@ -69,7 +71,7 @@ app.get('/api/count/:_build_no',function(req,res){
         if(err){
             throw err;
         }
-        console.log(builds);
+//        console.log(builds);
         res.json(builds);
     });
  }); 
@@ -99,9 +101,47 @@ app.get('/api/buildNumberList',function(req,res){
     });
 }); 
 
+app.get('/api/sprintMetrics', function(req,res){
 
+    Build.getLatestBuildNumber(function(err,max_build){
+        if(err){
+            throw err;
+        }
+        var obj = JSON.stringify(max_build);
+        var build_no = obj.split(":")[1].replace("}]","").replace("\"","").replace("\"","");
+//        console.log(build_no);
+        var sprint = 'Current Sprint';
+        var release = '15.4';
+        var pi = 'Holiday';
+        Build.insertLatestBuildNumber(release, pi, sprint, build_no, function(err,builds){
+            if(err){
+                throw err;
+            }
+        });
 
+        Build.getSprintMetric(function(err,metrics){
+            if(err){
+                throw err;
+            }
+            metrics.sort(function(a, b) {
+                return a.build_no < b.build_no;
+            });
+//            metrics.sort();
+            res.json(metrics);
+        });
+    });
+});
 
+  app.put('/api/updateComments',function(req,res){
+  console.log(req.body.build_no + '    '+ req.body.comment);
+
+    Build.updateComments(req.body.build_no, req.body.comment, function(err){
+        if(err){
+            throw err;
+        }
+        res.json();
+    });
+ });
 
 
 
