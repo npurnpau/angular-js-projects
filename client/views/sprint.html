@@ -67,12 +67,13 @@
                 <div ng-controller="sprintsMetricsExec" ng-init="getSprintMetric()">
                     <h1>{{prd.data[0].release}}/{{prd.data[0].pi}}</h1>
                     <table id="tableID" class="table" style="height:80%;width:100%; position:absolute;">
-                        <col style="width:8%">
-                        <col style="width:8%">
-                        <col style="width:16%">
-                        <col style="width:16%">
-                        <col style="width:16%">
-                        <col style="width:16%">
+                        <col style="width:6%">
+                        <col style="width:6%">
+                        <col style="width:12%">
+                        <col style="width:12%">
+                        <col style="width:12%">
+                        <col style="width:12%">
+                        <col style="width:56%">
                         <tr id="rows" ng-repeat="sprint in prd.data">
                             <td style="text-align:center"><div id="box" >
                                 <div class="innerContent">
@@ -86,37 +87,38 @@
                                 </div>
                             </div>
                             </td>
-                            <td data-tooltip="{{sprint.comments}}"><div id="box" ng-class="{'red': (sprint.buildDetails[0].XTHJTH_passed < 70), 'green': (sprint.buildDetails[0].XTHJTH_passed >90), 'yellow': (sprint.buildDetails[0].XTHJTH_passed >70 && sprint.buildDetails[0].XTHJTH_passed<90)}">
+                            <td data-tooltip="Total : {{sprint.buildDetails[0].XTHJTH_total}} Fail : {{sprint.buildDetails[0].XTHJTH_failed}} Pass : {{sprint.buildDetails[0].XTHJTH_passed}}%">
+                                <div id="box" ng-class="{'red': (sprint.buildDetails[0].XTHJTH_passed < 70), 'green': (sprint.buildDetails[0].XTHJTH_passed >90), 'yellow': (sprint.buildDetails[0].XTHJTH_passed >70 && sprint.buildDetails[0].XTHJTH_passed<90)}">
                                 <div class="innerContent">
-                                    XTHJTH : {{sprint.buildDetails[0].XTHJTH_passed}}%
-                                    <br><br>
-                                    <p>Total : {{sprint.buildDetails[0].XTHJTH_total}}&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;Failed : {{sprint.buildDetails[0].XTHJTH_failed}}</p>
+                                    XTHJTH
                                 </div>
                             </div>
                             </td>
-                            <td data-tooltip="{{sprint.comments}}"><div id="box" ng-class="{'red': (sprint.buildDetails[0].PROTRACTOR_passed < 70), 'green': (sprint.buildDetails[0].PROTRACTOR_passed >90), 'yellow': (sprint.buildDetails[0].PROTRACTOR_passed >70 && sprint.buildDetails[0].PROTRACTOR_passed<90)}">
+                            <td data-tooltip="Total : {{sprint.buildDetails[0].PROTRACTOR_total}} Fail : {{sprint.buildDetails[0].PROTRACTOR_failed}} Pass : {{sprint.buildDetails[0].PROTRACTOR_passed}}%">
+                                <div id="box" ng-class="{'red': (sprint.buildDetails[0].PROTRACTOR_passed < 70), 'green': (sprint.buildDetails[0].PROTRACTOR_passed >90), 'yellow': (sprint.buildDetails[0].PROTRACTOR_passed >70 && sprint.buildDetails[0].PROTRACTOR_passed<90)}">
                                 <div class="innerContent">
-                                    New UI : {{sprint.buildDetails[0].PROTRACTOR_passed}}%
-                                    <br><br>
-                                    <p>Total : {{sprint.buildDetails[0].PROTRACTOR_total}}&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;Failed : {{sprint.buildDetails[0].PROTRACTOR_failed}}</p>
+                                    New UI
                                 </div>
                             </div>
                             </td>
-                            <td data-tooltip="{{sprint.comments}}"><div id="box" ng-class="{'red': (sprint.buildDetails[0].REST_passed < 70), 'green': (sprint.buildDetails[0].REST_passed >90), 'yellow': (sprint.buildDetails[0].REST_passed >70 && sprint.buildDetails[0].REST_passed<90)}">
+                            <td data-tooltip="Total : {{sprint.buildDetails[0].REST_total}} Fail : {{sprint.buildDetails[0].REST_failed}} Pass : {{sprint.buildDetails[0].REST_passed}}%">
+                                <div id="box" ng-class="{'red': (sprint.buildDetails[0].REST_passed < 70), 'green': (sprint.buildDetails[0].REST_passed >90), 'yellow': (sprint.buildDetails[0].REST_passed >70 && sprint.buildDetails[0].REST_passed<90)}">
                                 <div class="innerContent">
-                                    REST : {{sprint.buildDetails[0].REST_passed}}%
-                                    <br><br>
-                                    <p>Total : {{sprint.buildDetails[0].REST_total}}&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;Failed : {{sprint.buildDetails[0].REST_failed}}</p>
+                                    REST
                                 </div>
                             </div>
                             </td>
-                            <td ><div id="box" ng-class="{'red': (sprint.buildDetails[0].UI_passed < 70), 'green': (sprint.buildDetails[0].UI_passed >90), 'yellow': (sprint.buildDetails[0].UI_passed >70 && sprint.buildDetails[0].UI_passed<90)}">
+                            <td data-tooltip="Total : {{sprint.buildDetails[0].UI_total}} Fail : {{sprint.buildDetails[0].UI_failed}} Pass : {{sprint.buildDetails[0].UI_passed}}%">
+                                <div id="box" ng-class="{'red': (sprint.buildDetails[0].UI_passed < 70), 'green': (sprint.buildDetails[0].UI_passed >90), 'yellow': (sprint.buildDetails[0].UI_passed >70 && sprint.buildDetails[0].UI_passed<90)}">
                                 <div class="innerContent">
-                                    Classic UI : {{sprint.buildDetails[0].UI_passed}}%
-                                    <br><br>
-                                    <p>Total : {{sprint.buildDetails[0].UI_total}}&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;Failed : {{sprint.buildDetails[0].UI_failed}}</p>
+                                    Classic UI
                                 </div>
                             </div>
+                            </td>
+                            <td >
+                                <div>
+                                    {{sprint.comments}}
+                                </div>
                             </td>
                         </tr>
                     </table>
