@@ -23,6 +23,10 @@ myApp.controller('sprintsMetrics', function ($scope, $http, $location, getBuildN
             if(arr[i].comments == "NA"){
                 arr[i].comments = "";
             }
+            arr[i].buildDetails["0"].PROTRACTOR_passed = Math.floor((arr[i].buildDetails["0"].PROTRACTOR_passed)/(arr[i].buildDetails["0"].PROTRACTOR_total)*100);
+            arr[i].buildDetails["0"].REST_passed = Math.floor((arr[i].buildDetails["0"].REST_passed)/(arr[i].buildDetails["0"].REST_total)*100);
+            arr[i].buildDetails["0"].UI_passed = Math.floor((arr[i].buildDetails["0"].UI_passed)/(arr[i].buildDetails["0"].UI_total)*100);
+            arr[i].buildDetails["0"].XTHJTH_passed = Math.floor((arr[i].buildDetails["0"].XTHJTH_passed)/(arr[i].buildDetails["0"].XTHJTH_total)*100);
         }
         $scope.prd= response;
      },function errorCallback(response) {
@@ -72,10 +76,10 @@ myApp.controller('sprintsMetricsExec', function ($scope, $http, $location, getBu
             if(arr[i].comments == "NA"){
                 arr[i].comments = "";
             }
-            arr[i].buildDetails["0"].PROTRACTOR_passed = (arr[i].buildDetails["0"].PROTRACTOR_passed)/(arr[i].buildDetails["0"].PROTRACTOR_total)*100;
-            arr[i].buildDetails["0"].REST_passed = (arr[i].buildDetails["0"].REST_passed)/(arr[i].buildDetails["0"].REST_total)*100;
-            arr[i].buildDetails["0"].UI_passed = (arr[i].buildDetails["0"].UI_passed)/(arr[i].buildDetails["0"].UI_total)*100;
-            arr[i].buildDetails["0"].XTHJTH_passed = (arr[i].buildDetails["0"].XTHJTH_passed)/(arr[i].buildDetails["0"].XTHJTH_total)*100;
+            arr[i].buildDetails["0"].PROTRACTOR_passed = Math.floor((arr[i].buildDetails["0"].PROTRACTOR_passed)/(arr[i].buildDetails["0"].PROTRACTOR_total)*100);
+            arr[i].buildDetails["0"].REST_passed = Math.floor((arr[i].buildDetails["0"].REST_passed)/(arr[i].buildDetails["0"].REST_total)*100);
+            arr[i].buildDetails["0"].UI_passed = Math.floor((arr[i].buildDetails["0"].UI_passed)/(arr[i].buildDetails["0"].UI_total)*100);
+            arr[i].buildDetails["0"].XTHJTH_passed = Math.floor((arr[i].buildDetails["0"].XTHJTH_passed)/(arr[i].buildDetails["0"].XTHJTH_total)*100);
         }
 
         $scope.prd= response;
